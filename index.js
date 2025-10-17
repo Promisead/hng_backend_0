@@ -2,13 +2,27 @@ import express from "express";
 import axios from "axios";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "✅ Promise Duke's HNG Backend Stage 0 API is running!",
+    endpoint: "/me",
+  });
+});
 
 app.get("/me", async (req, res) => {
   try {
-    const { data } = await axios.get("https://catfact.ninja/fact", { timeout: 5000 });
+    let fact = "Cats sleep for 70% of their lives. (Default fallback fact)";
+    try {
+      const { data } = await axios.get("https://catfact.ninja/fact", { timeout: 4000 });
+      if (data?.fact) fact = data.fact;
+    } catch {
+      const { data } = await axios.get("https://meowfacts.herokuapp.com/", { timeout: 4000 });
+      fact = Array.isArray(data.data) ? data.data[0] : data.data;
+    }
 
-    const response = {
+    res.status(200).json({
       status: "success",
       user: {
         email: "promiseduke@gmail.com",
@@ -16,21 +30,15 @@ app.get("/me", async (req, res) => {
         stack: "Node.js/Express",
       },
       timestamp: new Date().toISOString(),
-      fact: data.fact,
-    };
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(response);
-  } catch (error) {
-    console.error("❌ Error fetching cat fact:", error.message);
-
+      fact,
+    });
+  } catch (err) {
+    console.error("❌ Server error:", err.message);
     res.status(500).json({
       status: "error",
-      message: "Failed to fetch cat fact. Please try again later.",
+      message: "Unexpected server error.",
     });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
