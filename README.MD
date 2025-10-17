@@ -6,7 +6,7 @@ A simple RESTful API endpoint built with **Node.js and Express** that returns us
 
 ## 🚀 Live Endpoint
 
-👉 **GET** [https://your-app-name.up.railway.app/me](https://your-app-name.up.railway.app/me)
+👉 **GET** [https://hng-backend0.pxxl.click/me](https://hng-backend0.pxxl.click/me)
 
 ---
 

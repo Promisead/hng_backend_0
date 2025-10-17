@@ -6,12 +6,8 @@ const PORT = process.env.PORT || 3000;
 
 app.get("/me", async (req, res) => {
   try {
-    
-    const { data } = await axios.get("https://catfact.ninja/fact", {
-      timeout: 5000,
-    });
+    const { data } = await axios.get("https://catfact.ninja/fact", { timeout: 5000 });
 
-    // Prepare response
     const response = {
       status: "success",
       user: {
@@ -26,7 +22,7 @@ app.get("/me", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.status(200).json(response);
   } catch (error) {
-    console.error("Error fetching cat fact:", error.message);
+    console.error("❌ Error fetching cat fact:", error.message);
 
     res.status(500).json({
       status: "error",
@@ -36,5 +32,5 @@ app.get("/me", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

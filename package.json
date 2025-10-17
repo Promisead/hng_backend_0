@@ -1,18 +1,14 @@
 {
   "name": "hng-backend-stage0",
   "version": "1.0.0",
+  "description": "HNG Stage 0 - Dynamic Profile Endpoint",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "axios": "^1.12.2",
-    "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "axios": "^1.6.0",
+    "express": "^4.18.2"
   }
 }
